@@ -25,11 +25,12 @@ static InAppRageIAPHelper * _sharedHelper;
 - (id)init {
     
     NSSet *productIdentifiers = [NSSet setWithObjects:
-        @"com.raywenderlich.inapprage.drummerrage",
-        @"com.raywenderlich.inapprage.itunesconnectrage", 
-        @"com.raywenderlich.inapprage.nightlyrage",
-        @"com.raywenderlich.inapprage.studylikeaboss",
-        @"com.raywenderlich.inapprage.updogsadness",
+        @"pyc.com.cn.pbb.108",
+        @"pyc.com.cn.pbb.208",
+        @"pyc.com.cn.pbb.6",
+        @"pyc.com.cn.pbb.18",
+        @"pyc.com.cn.pbb.30",
+        @"pyc.com.cn.pbb.60",
         nil];
     
     if ((self = [super initWithProductIdentifiers:productIdentifiers])) {                

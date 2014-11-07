@@ -14,6 +14,8 @@
 @synthesize purchasedProducts = _purchasedProducts;
 @synthesize request = _request;
 
+
+//初始化代码将检测哪些产品已经被购买,哪些还没有(根据NSUserDefaults保存的信息判断),并设置适当的数据结构
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers {
     if ((self = [super init])) {
         
@@ -45,9 +47,14 @@
     
 }
 
+//产品列表查询完毕时(productsRequest:didReceiveResponse),它会收到一个回调消息
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     
-    NSLog(@"Received products results...");   
+    
+//    它贮存产品列表并返回(是一个SKProducts的数组),
+//    然后把request设置为nil(为了释放内存),
+//    然后发出一个通知,任何侦听这个通知的对象都会收到这个消息
+    NSLog(@"Received products results...");
     self.products = response.products;
     self.request = nil;    
     
@@ -102,6 +109,8 @@
     
 }
 
+//把此类当作delegate来接收支付事务的更新消息
+//所以，当支付付完成或者失败的时候,paymentQueue:updatedTransactions 这个函数将会被调用。
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
     for (SKPaymentTransaction *transaction in transactions)
@@ -125,7 +134,7 @@
 - (void)buyProductIdentifier:(NSString *)productIdentifier {
     
     NSLog(@"Buying %@...", productIdentifier);
-    
+//    创建一个新的SKPayment对象,并且把这个对象加载到队列中去
     SKPayment *payment = [SKPayment paymentWithProductIdentifier:productIdentifier];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
     
